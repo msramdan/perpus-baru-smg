@@ -33,17 +33,17 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach ($simpanpinjam as $s) : ?>
+                                <?php foreach ($datasimpanpinjam as $ds) : ?>
                                     <tr>
                                         <td><?= $i++ ?></td>
-                                        <td><?= $s['isbn'] ?></td>
-                                        <td><?= $s['judul'] ?></td>
-                                        <td><?= $s['nomor'] ?></td>
-                                        <td><?= $s['nama'] ?></td>
-                                        <td><?= $s['kelas'] ?></td>
-                                        <td><?= $s['tgl_pinjam'] ?></td>
-                                        <td><?= $s['tgl_kembali'] ?></td>
-                                        <td><?= \App\Controllers\Simpanpinjam::calculateDenda($s['tgl_kembali']); ?></td>
+                                        <td><?= $ds['isbn'] ?></td>
+                                        <td><?= $ds['judul'] ?></td>
+                                        <td><?= $ds['nomor'] ?></td>
+                                        <td><?= $ds['nama'] ?></td>
+                                        <td><?= $ds['kelas'] ?></td>
+                                        <td><?= $ds['tgl_pinjam'] ?></td>
+                                        <td><?= $ds['tgl_kembali'] ?></td>
+                                        <td><?= \App\Controllers\Datasimpanpinjam::calculateDenda($ds['tgl_kembali']); ?></td>
                                         </a>
                                         </td>
                                     </tr>
