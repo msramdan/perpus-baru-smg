@@ -45,7 +45,7 @@ abstract class BaseFilter
         $this->authorize = service('authorization');
 
         // Load the helper
-        if (! function_exists('logged_in')) {
+        if (!function_exists('logged_in')) {
             helper('auth');
         }
     }

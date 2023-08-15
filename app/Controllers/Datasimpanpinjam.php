@@ -9,14 +9,14 @@ use \DateTime;
 
 class Datasimpanpinjam extends BaseController
 {
-    protected $simpanpinjamModel;
+    protected $datasimpanpinjamModel;
     protected $helpers = ['form'];
     protected $bukuModel;
     protected $anggotaModel;
 
     public function __construct()
     {
-        $this->simpanpinjamModel = new datasimpanpinjamModel();
+        $this->datasimpanpinjamModel = new datasimpanpinjamModel();
         $this->bukuModel = new bukuModel();
         $this->anggotaModel = new anggotaModel();
     }
@@ -25,16 +25,16 @@ class Datasimpanpinjam extends BaseController
     {
         $keywork = $this->request->getVar('keywork');
         if ($keywork) {
-            $simpanpinjam = $this->simpanpinjamModel->search($keywork);
+            $datasimpanpinjam = $this->datasimpanpinjamModel->search($keywork);
         } else {
-            $simpanpinjam = $this->simpanpinjamModel;
+            $datasimpanpinjam = $this->datasimpanpinjamModel;
         }
         // $simpanpinjamModel = new SimpanpinjamModel();
 
         // return view('simpanpinjam/index', $data);
         $data = [
             'title' => 'Transaksi Buku',
-            'simpanpinjam' => $this->simpanpinjamModel->getSimpanPinjam(),
+            'datasimpanpinjam' => $this->datasimpanpinjamModel->getDataSimpanPinjam(),
             'buku' => $this->bukuModel->getBuku(),
             'anggota' => $this->anggotaModel->getAnggota()
         ];
