@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\bukuModel;
 use App\Models\anggotaModel;
-use App\Models\simpanpinjamModel;
+use App\Models\pinjamkembaliModel;
 use IntlDateFormatter;
 
 class Home extends BaseController
@@ -13,14 +13,14 @@ class Home extends BaseController
     {
         $bukuModel = new bukuModel();
         $anggotaModel = new anggotaModel();
-        $simpanpinjamModel = new simpanpinjamModel();
+        $pinjamkembaliModel = new pinjamkembaliModel();
         $data = [
             'title' => 'Dashboard',
             'hari' => $this->getHariIndonesia(date('N')),
             'tanggal' => $this->getTanggalIndonesia(date('Y-m-d')),
             'jumlah_buku' => $bukuModel->countAll(),
             'jumlah_anggota' => $anggotaModel->countAll(),
-            'jumlah_transaksi' => $simpanpinjamModel->countAll()
+            'jumlah_transaksi' => $pinjamkembaliModel->countAll()
         ];
         return view('home/index', $data);
     }

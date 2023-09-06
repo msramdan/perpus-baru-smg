@@ -27,8 +27,8 @@
                     <p>Daftar Anggota</p>
                 </a>
             </li>
-            <li class="<?php if (uri_string() == 'datasimpanpinjam') echo 'active'; ?>">
-                <a href="/datasimpanpinjam">
+            <li class="<?php if (uri_string() == 'datapinjamkembali') echo 'active'; ?>">
+                <a href="/datapinjamkembali">
                     <i class="tim-icons icon-refresh-02"></i>
                     <p>Daftar Transaksi</p>
                 </a>

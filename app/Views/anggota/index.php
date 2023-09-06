@@ -18,7 +18,7 @@
                 <div class="btn-container">
                     <a href="/anggota/create" class="btn btn-info mb-3"><i class="tim-icons icon-simple-add"></i></a>
                     <form method="post" action="/anggota/import" enctype="multipart/form-data" id="import-form">
-                        <label for="import_file" class="btn btn-default mb-3">
+                        <label for="import_file" class="btn btn-primary mb-3">
                             Import Anggota
                             <input type="file" class="form-control-file" id="import_file" name="import_file" style="display:none;">
                         </label>
