@@ -65,17 +65,19 @@ $routes->get('/anggota/update', 'Anggota::update', ['filter' => 'login']);
 
 $routes->get('/anggota/save', 'Anggota::save', ['filter' => 'login']);
 
-$routes->get('/simpanpinjam', 'SimpanPinjam::index', ['filter' => 'login']);
+$routes->get('/pinjamkembali', 'PinjamKembali::index', ['filter' => 'login']);
 
-$routes->get('/simpanpinjam/create', 'SimpanPinjam::create', ['filter' => 'login']);
+$routes->get('/pinjamkembali/create', 'PinjamKembali::create', ['filter' => 'login']);
 
-$routes->get('/simpanpinjam/edit/(:segment)', 'SimpanPinjam::edit/$1', ['filter' => 'login']);
+$routes->get('/pinjamkembali/edit/(:segment)', 'PinjamKembali::edit/$1', ['filter' => 'login']);
 
-$routes->get('/simpanpinjam/update', 'SimpanPinjam::update', ['filter' => 'login']);
+$routes->get('/pinjamkembali/update', 'PinjamKembali::update', ['filter' => 'login']);
 
-$routes->get('/simpanpinjam/save', 'SimpanPinjam::save', ['filter' => 'login']);
+$routes->get('/pinjamkembali/peminjaman', 'PinjamKembali::peminjaman', ['filter' => 'login']);
 
-$routes->get('/simpanpinjam/cetak-laporan', 'SimpanPinjam::cetakLaporan', ['filter' => 'login']);
+$routes->get('/pinjamkembali/cetak-laporan', 'PinjamKembali::cetakLaporan', ['filter' => 'login']);
+
+$routes->get('/logpinjamkembali/cetak-laporan', 'LogPinjamKembali::cetakLaporan', ['filter' => 'login']);
 
 /*
  * --------------------------------------------------------------------

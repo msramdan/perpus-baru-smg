@@ -81,6 +81,66 @@
   <script src="/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
+      $('.info-button').click(function() {
+        var transaksi = $(this).data('status');
+        $('#tgl_pinjam').html('Tanggal Pinjam: ' + transaksi.tgl_pinjam);
+        $('#tgl_kembali').html('Tanggal Kembali: ' + transaksi.tgl_kembali);
+
+        // Menghitung telat mengembalikan dalam hari
+        var tglKembali = new Date(transaksi.tgl_kembali);
+        var tglSekarang = new Date();
+        var telat = Math.max(0, Math.floor((tglSekarang - tglKembali) / (24 * 60 * 60 * 1000)));
+        $('#telat_mengembalikan').html('Telat mengembalikan: ' + telat + ' hari');
+
+        // Menghitung total denda
+        var dendaPerHari = 500;
+        var totalDenda = telat * dendaPerHari;
+        $('#total_denda').html('Total Denda: Rp ' + totalDenda.toLocaleString('en-US'));
+      });
+    });
+  </script>
+  <div class="modal fade" id="infoDendaModal" tabindex="-1" aria-labelledby="infoDendaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoDendaModalLabel">Informasi Denda</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Denda dihitung berdasarkan telat mengembalikan buku, selama perhari denda yang berlaku adalah Rp. 500.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="infoModalLabel">Informasi Transaksi</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="tgl_pinjam"></p>
+          <p id="tgl_kembali"></p>
+          <p id="telat_mengembalikan"></p> <!-- Menampilkan informasi telat mengembalikan -->
+          <p>Denda Perhari: Rp 500</p>
+          <p id="total_denda"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
@@ -218,7 +278,7 @@
     $(document).ready(function() {
       $('#judul').change(function() {
         $.ajax({
-          url: '<?php echo base_url("simpanpinjam/getBukuByJudul"); ?>/' + $(this).val(),
+          url: '<?php echo base_url("pinjamkembali/getBukuByJudul"); ?>/' + $(this).val(),
           dataType: 'json',
           success: function(data) {
             $('#isbn').val(data.isbn);
@@ -232,7 +292,7 @@
     $(document).ready(function() {
       $('#nama').change(function() {
         $.ajax({
-          url: '<?php echo base_url("simpanpinjam/getAnggotaByNama"); ?>/' + $(this).val(),
+          url: '<?php echo base_url("pinjamkembali/getAnggotaByNama"); ?>/' + $(this).val(),
           dataType: 'json',
           success: function(data) {
             $('#nomor').val(data.nomor);

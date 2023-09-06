@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\databukuModel;
 
-use App\Models\simpanpinjamModel;
+use App\Models\pinjamkembaliModel;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
 
@@ -15,10 +15,10 @@ use Endroid\QrCode\Writer\PngWriter;
 class Databuku extends BaseController
 {
     protected $databukuModel;
-    protected $simpanpinjamModel;
+    protected $pinjamkembaliModel;
     public function __construct()
     {
-        $this->simpanpinjamModel = new simpanpinjamModel();
+        $this->pinjamkembaliModel = new pinjamkembaliModel();
         $this->databukuModel = new databukuModel();
     }
 
@@ -42,11 +42,11 @@ class Databuku extends BaseController
     public function detail($slug)
     {
         $buku = $this->databukuModel->getBuku($slug);
-        $simpanpinjam = $this->simpanpinjamModel->getSimpanPinjam();
+        $pinjamkembali = $this->pinjamkembaliModel->getPinjamKembali();
         $qrCode = $this->generateQrCode($buku);
-        $jumlahPeminjaman = $this->simpanpinjamModel->getJumlahPeminjamanByJudul($buku['judul']);
+        $jumlahPeminjaman = $this->pinjamkembaliModel->getJumlahPeminjamanByJudul($buku['judul']);
         $jumlahStok = $buku['jumlah'];
-        $daftarPeminjam = $this->simpanpinjamModel->getDaftarPeminjamByJudul($buku['judul']);
+        $daftarPeminjam = $this->pinjamkembaliModel->getDaftarPeminjamByJudul($buku['judul']);
 
         $data = [
             'title' => 'Detail Buku',
@@ -69,10 +69,10 @@ class Databuku extends BaseController
     {
         // Memasukkan Informasi yang akan ditampilkan di QR Code
         $informasi = [
-            'Jumlah Peminjaman' => $this->simpanpinjamModel->getJumlahPeminjamanByJudul($buku['judul']),
+            'Jumlah Peminjaman' => $this->pinjamkembaliModel->getJumlahPeminjamanByJudul($buku['judul']),
             'Jumlah Stok Tersisa' => $buku['jumlah'],
             'Lokasi Buku' => $buku['lokasi'],
-            'Daftar Peminjam' => $this->simpanpinjamModel->getDaftarPeminjamByJudul($buku['judul'])
+            'Daftar Peminjam' => $this->pinjamkembaliModel->getDaftarPeminjamByJudul($buku['judul'])
         ];
 
         // Menghasilkan QR code sebagai string dengan informasi yang ditambahkan

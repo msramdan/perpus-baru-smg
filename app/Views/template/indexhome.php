@@ -81,6 +81,66 @@
     <script src="/demo/demo.js"></script>
     <script>
         $(document).ready(function() {
+            $('.info-button').click(function() {
+                var transaksi = $(this).data('status');
+                $('#tgl_pinjam').text('Tanggal Pinjam: ' + transaksi.tgl_pinjam);
+                $('#tgl_kembali').text('Tanggal Kembali: ' + transaksi.tgl_kembali);
+
+                // Menghitung selisih hari antara tanggal kembali dengan tanggal sekarang
+                var tglKembali = new Date(transaksi.tgl_kembali);
+                var tglSekarang = new Date();
+                var selisih = Math.max(0, Math.floor((tglSekarang - tglKembali) / (1000 * 60 * 60 * 24))); // mengubah ke bilangan bulat
+
+                $('#jumlah_hari_telat').text('Jumlah Hari Telat: ' + selisih + ' hari');
+
+                var dendaPerHari = 500;
+                var totalDenda = dendaPerHari * selisih;
+                $('#total_denda').text('Total Denda: Rp ' + totalDenda.toLocaleString());
+            });
+        });
+    </script>
+    <div class="modal fade" id="infoDendaModal" tabindex="-1" aria-labelledby="infoDendaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoDendaModalLabel">Informasi Denda</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Denda dihitung berdasarkan telat mengembalikan buku, selama perhari denda yang berlaku adalah Rp. 500.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="infoModalLabel">Informasi Denda</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="tgl_pinjam"></p>
+                    <p id="tgl_kembali"></p>
+                    <p id="jumlah_hari_telat"></p>
+                    <p>Denda Perhari: Rp 500</p>
+                    <p id="total_denda"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
             $().ready(function() {
                 $sidebar = $('.sidebar');
                 $navbar = $('.navbar');
@@ -218,7 +278,7 @@
         $(document).ready(function() {
             $('#isbn').change(function() {
                 $.ajax({
-                    url: '<?php echo base_url("simpanpinjam/getBukuByIsbn"); ?>/' + $(this).val(),
+                    url: '<?php echo base_url("pinjamkembali/getBukuByIsbn"); ?>/' + $(this).val(),
                     dataType: 'json',
                     success: function(data) {
                         $('#judul').val(data.judul);
@@ -232,7 +292,7 @@
         $(document).ready(function() {
             $('#nomor').change(function() {
                 $.ajax({
-                    url: '<?php echo base_url("simpanpinjam/getAnggotaByNomor"); ?>/' + $(this).val(),
+                    url: '<?php echo base_url("pinjamkembali/getAnggotaByNomor"); ?>/' + $(this).val(),
                     dataType: 'json',
                     success: function(data) {
                         $('#nama').val(data.nama);

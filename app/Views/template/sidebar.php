@@ -27,10 +27,16 @@
                     <p>Kelola Anggota</p>
                 </a>
             </li>
-            <li class="<?php if (uri_string() == 'simpanpinjam') echo 'active'; ?>">
-                <a href="/simpanpinjam">
+            <li class="<?php if (uri_string() == 'pinjamkembali') echo 'active'; ?>">
+                <a href="/pinjamkembali">
                     <i class="tim-icons icon-refresh-02"></i>
                     <p>Transaksi Buku</p>
+                </a>
+            </li>
+            <li class="<?php if (uri_string() == 'logpinjamkembali') echo 'active'; ?>">
+                <a href="/logpinjamkembali">
+                    <i class="tim-icons icon-notes"></i>
+                    <p>Log Transaksi Buku</p>
                 </a>
             </li>
         </ul>
